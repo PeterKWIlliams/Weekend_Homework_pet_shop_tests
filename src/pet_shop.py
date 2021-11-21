@@ -37,10 +37,10 @@ def get_pets_by_breed(data,breed):
 def find_pet_by_name(data,pet_name):
     for pets in data["pets"]:
       if pet_name == pets["name"]:
-        return pets   
+        return pets
+             
     
 def remove_pet_by_name(data,pet_name):
-   
     for index_num in range(len(data["pets"])):
       if data["pets"][index_num]["name"] == pet_name: 
         (data["pets"]).pop(index_num)
@@ -70,13 +70,22 @@ def customer_can_afford_pet(data,new_pet):
     return False    
 
 def sell_pet_to_customer(data,pet,customer):
-    
-    
+    if pet is None:
+      return  
+    elif customer["cash"] <= pet["price"]:
+        return
+    else: 
+        data["admin"]["total_cash"] += pet["price"]
+        data["admin"]["pets_sold"]  += 1 
+        data["pets"].remove(pet)
+        customer["pets"].append(pet) 
+        customer["cash"] -= pet["price"]
     
 
         
           
            
+        
         
     
     
